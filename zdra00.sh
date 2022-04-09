@@ -143,7 +143,7 @@ zdrahash () {
   echo
   echo "==> SIDRA Scripting Library rehash started..."
   rm -f -r "${zdrahome}" \
-    && : > "${ZDRA_PLUGINS_INSTALLED_FILE}" \
+    && > "${ZDRA_PLUGINS_INSTALLED_FILE}" \
     && mkdir "${zdrahome}" \
     && cp -a "${zdrasrc}"/* "${zdrahome}"/ \
     || errors=true
