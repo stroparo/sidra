@@ -152,6 +152,8 @@ zdrahash () {
     echo
     echo "==> SIDRA Scripting Library rehash complete"
 
+    zdraload "${zdrahome}"
+
     echo "${progname}: INFO: Hashing plugins..."
     sourcefiles ${ZDRA_VERBOSE:+-v} -t "${ZDRA_HOME}/zdra10path.sh"
     zdrahashplugins.sh
@@ -339,7 +341,7 @@ sourcefiles () {
 
     if [ -z "$srcs" ] ; then
       if ! ${tolerant} ; then
-        $quiet || echo "FATAL: $nta Bad glob." 1>&2
+        $quiet || echo "FATAL: ${nta} Bad glob." 1>&2
         return 1
       fi
       continue
