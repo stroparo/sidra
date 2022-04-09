@@ -1,7 +1,7 @@
 zdraplug () {
   for plugin in "$@" ; do
     plugin_basename="${plugin%.git}"
-    plugin_basename="${plugin##*/}"
+    plugin_basename="${plugin_basename##*/}"
 
     was_already_installed=false
     if grep -q "${plugin_basename}" "${ZDRA_PLUGINS_INSTALLED_FILE}" ; then
