@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Script to restore a partition using ocs, the program used by the clonezilla linux distro.
+
+partimage="$1"
+partfrom="$2"
+partto="${3:-$partfrom}"
+
+if [ -z "$partimage" -o -z "$partfrom" -o -z "$partto" ] ; then
+    echo "ERROR: bad arguments" 1>&2
+    echo "Usage: {image-filename} {partition-from (e.g. sda3)} [partition-to (e.g. sda3)]" 1>&2
+    exit 1
+fi
+
+/usr/sbin/ocs-sr -e1 auto -e2 -t -r -j2 -k -p choose -f "$partfrom" -c \
+    restoreparts "$partimage" "$partto"
+echo $?

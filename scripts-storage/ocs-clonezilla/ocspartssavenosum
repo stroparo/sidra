@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Script to save partitions using ocs, the program used by the clonezilla linux distro.
+
+# Usage:
+# {partition-device-to-be-saved} [image-name-prefix]
+
+PART_TO_BE_SAVED="$1"
+PART_TO_BE_SAVED_ALNUM="$(echo "$PART_TO_BE_SAVED" | sed -e 's/[^a-z0-9_-]/-/gi' | tr -s -- '-')"
+NEW_IMAGE_PREFIX="$2"
+
+if [ -z "$PART_TO_BE_SAVED" ] ; then
+  echo "ERROR: Must pass partition to be saved (sd?[0-9])." 1>&2
+  exit 1
+fi
+
+# -q ntfsclone, -q2 partclone > partimag > dd
+/usr/sbin/ocs-sr -q2 -j2 -rm-win-swap-hib -z1p -i 4096 -sc -p true \
+    saveparts "${NEW_IMAGE_PREFIX:-ocs-saveparts}-${PART_TO_BE_SAVED_ALNUM}-$(date '+%y%m%d-%OH%OM')" "$1"
+echo $?

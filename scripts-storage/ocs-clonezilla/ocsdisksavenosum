@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Script to save a disk to an image using ocs, the program used by the clonezilla linux distro.
+
+# Usage:
+# {disk-device-to-be-saved} [image-name-prefix]
+
+DISK_TO_BE_SAVED="$1"
+DISK_TO_BE_SAVED_ALNUM="$(echo "$DISK_TO_BE_SAVED" | sed -e 's/[^a-z0-9_-]/-/gi' | tr -s -- '-')"
+NEW_IMAGE_PREFIX="$2"
+
+if [ -z "$DISK_TO_BE_SAVED" ] ; then
+  echo "ERROR: Must pass device to be saved (sd?)." 1>&2
+  exit 1
+fi
+
+/usr/sbin/ocs-sr -q2 -j2 -rm-win-swap-hib -z1p -i 4096 -sc -p true \
+    savedisk "${NEW_IMAGE_PREFIX:-ocs-savedisk}-${DISK_TO_BE_SAVED_ALNUM}-$(date '+%y%m%d-%OH%OM')" "$DISK_TO_BE_SAVED"
+echo $?

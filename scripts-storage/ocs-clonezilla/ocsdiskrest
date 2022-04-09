@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Script to restore a disk image using ocs, the program used by the clonezilla linux distro.
+
+IMAGE_FILENAME="$1"
+DISK_RECEIVING="$2"
+
+if [ -z "$IMAGE_FILENAME" -o -z "$DISK_RECEIVING" ] ; then
+    echo "ERROR: bad arguments" 1>&2
+    echo "Usage: {image-filename} {disk-receiving (e.g. sda)}" 1>&2
+    exit 1
+fi
+
+/usr/sbin/ocs-sr -g auto -e1 auto -e2 -r -j2 -p true -c \
+    restoredisk "${IMAGE_FILENAME}" "${DISK_RECEIVING}"
+echo $?

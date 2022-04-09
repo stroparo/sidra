@@ -1,0 +1,3 @@
+chmodscriptszdra () {
+  chmodscripts "$@" $(_zdragetscriptsdirs)
+}
