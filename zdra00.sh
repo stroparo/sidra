@@ -145,7 +145,7 @@ zdrahash () {
   rm -f -r "${zdrahome}" \
     && : > "${ZDRA_PLUGINS_INSTALLED_FILE:-/dev/null}" \
     && mkdir "${zdrahome}" \
-    && cp -a "${zdrasrc}"/* "${zdrahome}"/ \
+    && (cd "${zdrasrc}" && [ "$PWD" = "${zdrasrc}" ] && ./setup.sh "${zdrahome}"/) \
     || errors=true
 
   if ! ${errors:-false} ; then
