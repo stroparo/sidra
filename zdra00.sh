@@ -141,12 +141,15 @@ zdrahash () {
     echo "${progname}: FATAL: error in zdrabackup." 1>&2
     return 1
   fi
+  if [ -d "${zdrahome}" ] && ! rm -f -r "${zdrahome}" ; then
+    echo "${progname}: FATAL: Could not remove pre-existing directory '${zdrahome}'." 1>&2
+    return 1
+  fi
 
   echo
   echo "==> SIDRA Scripting Library rehash started..."
-  rm -f -r "${zdrahome}" \
-    && : > "${ZDRA_PLUGINS_INSTALLED_FILE:-/dev/null}" \
-    && mkdir "${zdrahome}" \
+  : > "${ZDRA_PLUGINS_INSTALLED_FILE:-/dev/null}" \
+    && mkdir -p "${zdrahome}" \
     && (cd "${zdrasrc}" && [ "$PWD" = "${zdrasrc}" ] && ./setup.sh "${zdrahome}"/) \
     || errors=true
 
