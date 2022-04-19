@@ -74,11 +74,13 @@ zdrabackup () {
   ls -d "${bakdir}" >/dev/null || return $?
 
   export ZDRA_LAST_BACKUP=""
-  ls -1 -d "${zdrahome}"/* >/dev/null 2>&1 || return 0
+  if ! ls -1 -d "${zdrahome}"/* >/dev/null 2>&1 ; then
+    return 0
+  fi
   cp -a "${zdrahome}"/* "${bakdir}"/
   if [ $? -eq 0 ] ; then
     export ZDRA_LAST_BACKUP="$(ls -1 -d "${bakdir}")"
-    echo "${ZDRA_LAST_BACKUP}"
+    echo "ZDRA_LAST_BACKUP=${ZDRA_LAST_BACKUP}"
     return 0
   else
     return 1
