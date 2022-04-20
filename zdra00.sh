@@ -122,6 +122,7 @@ zdrahash () {
   # Syntax: [-r] [this-lib-sources-dir:${DEV}/sidra]
   #   -r will reload SIDRA Scripting Library in the current shell session
 
+  typeset errors
   typeset progname="zdrahash()"
 
   # Simple option parsing must come first:
@@ -147,15 +148,17 @@ zdrahash () {
   fi
 
   echo
-  echo "==> SIDRA Scripting Library rehash started..."
-  : > "${ZDRA_PLUGINS_INSTALLED_FILE:-/dev/null}" \
-    && mkdir -p "${zdrahome}" \
-    && (cd "${zdrasrc}" && [ "$PWD" = "${zdrasrc}" ] && ./setup.sh "${zdrahome}"/) \
-    || errors=true
+  echo "${progname}: INFO: ==> SIDRA Scripting Library rehash started..."
+  if ! : > "${ZDRA_PLUGINS_INSTALLED_FILE:-/dev/null}" \
+    || ! mkdir -p "${zdrahome}" \
+    || ! (cd "${zdrasrc}" && [ "$PWD" = "${zdrasrc}" ] && ./setup.sh "${zdrahome}"/)
+  then
+    errors=true
+  fi
 
   if ! ${errors:-false} ; then
     echo
-    echo "==> SIDRA Scripting Library rehash complete"
+    echo "${progname}: INFO: ==> SIDRA Scripting Library rehash complete"
 
     zdraload "${zdrahome}"
 
