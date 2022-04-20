@@ -150,8 +150,7 @@ zdrahash () {
   echo
   echo "${progname}: INFO: ==> SIDRA Scripting Library rehash started..."
   if ! : > "${ZDRA_PLUGINS_INSTALLED_FILE:-/dev/null}" \
-    || ! mkdir -p "${zdrahome}" \
-    || ! (cd "${zdrasrc}" && ./setup.sh "${zdrahome}"/)
+      || ! (cd "${zdrasrc}" && ./setup.sh "${zdrahome}"/)
   then
     errors=true
   fi
