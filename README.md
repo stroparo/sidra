@@ -1,16 +1,6 @@
 Don't Repeat Yourself Scripting Library - Commonly needed scripts
 ======================================
 
-## Important
-
-This is to be discontinued and the new library replacing this will be https://github.com/stroparo/sidra
-
-Author: Cristian Stroparo
-
-License: May be used for commercial and non-commercial purposes, maintaining original source code comments with project title and original credits intact, and also state the author as such in the list of authors of any new / forked versions derived from this one.
-
----
-
 The _SIDRA Scripting Library_ (abbrev. 'SIDRA' in source code) is a collection of useful scripts in the form of functions and scripts (or "recipes", as in Chef lingo, although this library does not relate to Chef at all). Several subjects are covered relating but not limited to file manipulation, tech ops, text processing etc.
 
 Key advantages of using it in your project / environment:
@@ -84,8 +74,8 @@ Otherwise, specify the directory (after sourcing it will be pointed to by the $Z
 source {dir}/zdra.sh {dir}
 ```
 
-Plugins
--------
+Plugins - Make your Shell Scripts pluggable with no fuss!
+---------------------------------------------------------
 
 Nowadays lots of software are modular and allow for plugability via Git repositories etc. In this same spirit, the plugin mechanism for SIDRA aims to be as straightforward as it gets by just cloning a repository and copying it over on top of $ZDRA_HOME, this library's root installation directory.
 
