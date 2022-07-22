@@ -350,7 +350,7 @@ gittrackremotebranches () {
       echo
       echo "${progname:+$progname: }INFO: ==> Repo '${repo_path}' started; Target remote: '${remote_name}'..." 1>&2
       for branch_to_track in "$@" ; do
-        
+
         unset remote_already_tracked
         remote_already_tracked="$(git config --local "branch.${branch_to_track}.remote")"
         if [ -n "${remote_already_tracked}" ] ; then
@@ -358,7 +358,7 @@ gittrackremotebranches () {
           # TODO code for user to confirm: 'Do you wish to proceed and override with the new remote '${remote_name}'?'
           continue
         fi
-        
+
         # "Local remote" branch check:
         if [ ! -e "${repo_path}/.git/refs/remotes/${remote_name}/${branch_to_track}" ] ; then
           echo "${progname:+$progname: }WARN: Branch '${branch_to_track}' missing for remote '${remote_name}'. Trying to fetch it..." 1>&2

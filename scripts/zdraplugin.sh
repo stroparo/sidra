@@ -162,7 +162,7 @@ EOF
 
     echo "${PROGNAME:+$PROGNAME: }INFO: Cloning '${repo_url}'..."
     echo "${PROGNAME:+$PROGNAME: }INFO: PWD: '$PWD'"
-    
+
     while ! (git clone --depth 1 "${repo_url}" \
               && rm -f -r "${repo_dir}/.git" \
               && cp -a "${repo_dir}"/* "${ZDRA_HOME}/" \
